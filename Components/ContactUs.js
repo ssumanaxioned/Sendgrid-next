@@ -50,7 +50,7 @@ export default function ContactUs() {
 
     if (isValidForm) {
       setButtonText("Sending");
-      const res = await fetch("/api/sendgrid", {
+      const res = await fetch("/api/send", {
         body: JSON.stringify({
           email: email,
           fullname: fullname,
@@ -86,7 +86,6 @@ export default function ContactUs() {
       setMessage("");
       setSubject("");
     }
-    console.log(fullname, email, subject, message);
   };
   return (
     <main>

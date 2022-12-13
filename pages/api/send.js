@@ -1,14 +1,12 @@
-import sendgrid from "@sendgrid/mail";
+import sgMail from "@sendgrid/mail";
 
-sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
-
-console.log(process.env.SENDGRID_API_KEY);
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 async function sendEmail(req, res) {
   // NOTE: Uncomment the below lines to make the code work
 
   try {
-    await sendgrid.send({
+    await sgMail.send({
       to: "sumansasmal028@gmail.com", // Your email where you'll receive emails
       from: "sumans@axioned.com", // your website email address here
       subject: `[Lead from website] : ${req.body.subject}`,
