@@ -41,8 +41,6 @@ export default function ContactUs() {
     return isValid;
   };
 
-  //   const [form, setForm] = useState(false);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
