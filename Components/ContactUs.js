@@ -5,6 +5,8 @@ export default function ContactUs() {
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
+  const [resume, setResume] = useState("");
+  const [pdfName, setPdfName] = useState("");
 
   //   Form validation
   const [errors, setErrors] = useState({});
@@ -14,6 +16,29 @@ export default function ContactUs() {
 
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showFailureMessage, setShowFailureMessage] = useState(false);
+
+  const toBase64 = (pdf) =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(pdf);
+    reader.onload = () => {
+      let encoded = reader.result.toString().replace(/^data:(.*,)?/, "");
+      if (encoded.length % 4 > 0) {
+        encoded += "=".repeat(4 - (encoded.length % 4));
+      }
+      resolve(encoded);
+    };
+    reader.onerror = (error) => reject(error);
+  });
+
+  const handleFileSelect = async (e) => {
+    const file = e.target.files[0];
+    const converted = await toBase64(file);
+
+    console.log(converted);
+    setPdfName(e.target.files[0].name);
+    setResume(converted);
+  }
 
   const handleValidation = () => {
     let tempErrors = {};
@@ -48,12 +73,14 @@ export default function ContactUs() {
 
     if (isValidForm) {
       setButtonText("Sending");
-      const res = await fetch("/api/send", {
+      const res = await fetch("/api/sendmail", {
         body: JSON.stringify({
           email: email,
           fullname: fullname,
           subject: subject,
           message: message,
+          resume: resume,
+          pdfName: pdfName,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -280,6 +307,9 @@ export default function ContactUs() {
           {errors?.message && (
             <p className="text-red-500">Message body cannot be empty.</p>
           )}
+          <div className="my-5">
+            <input type="file" onChange={handleFileSelect} />
+          </div>
           <div className="flex flex-row items-center justify-start">
             <button
               type="submit"
@@ -317,9 +347,8 @@ export default function ContactUs() {
       </header>
       <section className="">
         <h1
-          className={`text-4xl font-bold text-center md:mt-60 my-10 gradient-text text-gray-700 ${
-            errors ? "md:mt-80" : "md:mt-60"
-          }`}
+          className={`text-4xl font-bold text-center md:mt-60 my-10 gradient-text text-gray-700 ${errors ? "md:mt-80" : "md:mt-60"
+            }`}
         >
           Reach out
         </h1>

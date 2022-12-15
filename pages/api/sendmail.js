@@ -6,10 +6,20 @@ async function sendEmail(req, res) {
   // NOTE: Uncomment the below lines to make the code work
 
   try {
+    console.log(req.body);
     await sgMail.send({
       to: "sumansasmal028@gmail.com", // Your email where you'll receive emails
       from: "sumans@axioned.com", // your website email address here
       subject: `[Lead from website] : ${req.body.subject}`,
+      attachments: [
+        {
+          filename: `${req.body.pdfName}`,
+          content: req.body.resume,
+          type: "application/pdf",
+          disposition: "attachment",
+          contentId: "resume"
+        },
+      ],
       html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
       <html lang="en">
       <head>
