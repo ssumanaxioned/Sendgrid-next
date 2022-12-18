@@ -231,7 +231,7 @@ export default function ContactUs() {
           className="rounded-lg shadow-xl flex flex-col px-8 py-8 bg-white dark:bg-blue-500"
         >
           <h1 className="text-2xl font-bold dark:text-gray-50">
-            Send a message
+            Job post
           </h1>
 
           <label
@@ -308,7 +308,7 @@ export default function ContactUs() {
             <p className="text-red-500">Message body cannot be empty.</p>
           )}
           <div className="my-5">
-            <input type="file" onChange={handleFileSelect} />
+            <input type="file" accept=".pdf" onChange={handleFileSelect} />
           </div>
           <div className="flex flex-row items-center justify-start">
             <button

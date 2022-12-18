@@ -4,13 +4,11 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 async function sendEmail(req, res) {
   // NOTE: Uncomment the below lines to make the code work
-
-  try {
-    console.log(req.body);
-    await sgMail.send({
+  const messages = [
+    {
       to: "sumansasmal028@gmail.com", // Your email where you'll receive emails
       from: "sumans@axioned.com", // your website email address here
-      subject: `[Lead from website] : ${req.body.subject}`,
+      subject: `Contact Info : ${req.body.subject}`,
       attachments: [
         {
           filename: `${req.body.pdfName}`,
@@ -45,8 +43,17 @@ async function sendEmail(req, res) {
               </div>
             </div>
       </body>
-      </html>`,
-    });
+      </html>`
+    },
+    {
+      to: `${req.body.email}`, // your website email address here
+      from: "sumans@axioned.com", // Your email where you'll receive emails
+      subject: `Acknowledgement`,
+      html: `<p>Thank you, your application is submitted would get back to you in few days.</p>`
+    }
+  ]
+  try {
+    await sgMail.send(messages);
   } catch (error) {
     // console.log(error);
     return res.status(error.statusCode || 500).json({ error: error.message });
