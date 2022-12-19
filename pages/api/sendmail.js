@@ -6,7 +6,7 @@ async function sendEmail(req, res) {
   // NOTE: Uncomment the below lines to make the code work
   const messages = [
     {
-      to: "sumansasmal028@gmail.com", // Your email where you'll receive emails
+      to: "sumans@axioned.com", // Your email where you'll receive emails
       from: `${process.env.SENDER_GMAIL}`, // your website email address here
       subject: `Contact Info : ${req.body.subject}`,
       attachments: [
