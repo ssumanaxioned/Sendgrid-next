@@ -63,3 +63,11 @@ async function sendEmail(req, res) {
 }
 
 export default sendEmail;
+
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '8mb',
+    },
+  },
+}

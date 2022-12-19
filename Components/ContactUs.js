@@ -35,7 +35,6 @@ export default function ContactUs() {
     const file = e.target.files[0];
     const converted = await toBase64(file);
 
-    console.log(converted);
     setPdfName(e.target.files[0].name);
     setResume(converted);
   }
