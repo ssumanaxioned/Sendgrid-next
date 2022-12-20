@@ -56,7 +56,7 @@ async function sendEmail(req, res) {
     await sgMail.send(messages);
   } catch (error) {
     // console.log(error);
-    return res.status(error.statusCode || 500).json({ error: error.message });
+    return res.status(error.statusCode || 500).json({ error: error.message, messages, env: process.env, result: "failure" });
   }
 
   return res.status(200).json({ error: "" });
