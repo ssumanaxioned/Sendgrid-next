@@ -306,8 +306,9 @@ export default function ContactUs() {
           {errors?.message && (
             <p className="text-red-500">Message body cannot be empty.</p>
           )}
-          <div className="my-5">
-            <input type="file" accept=".pdf" onChange={handleFileSelect} />
+          <div className="my-5 text-gray-50">
+            <lable className="block mb-5">Resume<span className="text-red-500">*</span></lable>
+            <input type="file" accept=".pdf" onChange={handleFileSelect} required/>
           </div>
           <div className="flex flex-row items-center justify-start">
             <button
